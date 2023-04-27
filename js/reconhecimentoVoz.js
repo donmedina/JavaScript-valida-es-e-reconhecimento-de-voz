@@ -1,4 +1,4 @@
-window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
 
 const recognition = new SpeechRecognition();
 recognition.lang = 'pt-br';
@@ -10,6 +10,7 @@ function onSpeak(event){
     const escolha = event.results[0][0].transcript;
     // document.querySelector('.box').innerHTML = escolha;
     exibeChute(escolha);
+    verificaChuteValido(escolha);
 }
 
 const elementoChute = document.getElementById('chute');
@@ -19,3 +20,5 @@ function exibeChute(chute){
         <span class="box">${chute}</span>
     `
 }
+
+recognition.addEventListener('end', ()=> recognition.start())
